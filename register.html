@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&#038;display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/Normalize.css">
+    <link rel="stylesheet" href="css/imagehover.min.css">
+    <link rel="stylesheet" href="css/imagehover.css">
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/master.css">
+    <link rel="stylesheet" href="css/bootstrapp.min.css">
+    <link rel="stylesheet" href="css/animate.min.css">
+    <link rel="stylesheet" href="css/hover.css">
+    <link rel="stylesheet" href="css/signup.css">
+    
+     <link rel="stylesheet" href="css/alertify.min.css" />
+<!-- include a theme -->
+<link rel="stylesheet" href="css/themes/default.min.css" />
+    <title>Sign Up</title>
+    <link rel="icon" type=" image/svg+xml" href="../imgs/logo.svg" />
+</head>
+
+<body>
+
+    <div class="patreg d-flex justify-content-center align-center flex-column ">
+        <div class="mt-10">
+
+            <div class="text txt-c d-flex justify-content-center container mb-20">
+                <p class=" fw-bold fs-25 fst-italic animate__animated animate__bounceInLeft ">Register  </p>
+
+            </div>
+
+
+            <div class=" container " style="border-radius: 10px 10px 0 0; border: 4px solid #0a58ca40;">
+                <form class="row g-3 needs-validation p-30">
+                    <div class="col-12  col-lg-6">
+                        <label for="fname" class="form-label fw-bold">Full Name*</label>
+                        <input type="text" name="fullname" autocomplete="off" class="form-control" id="fname" required placeholder="Enter Your full Name " maxlength="50" minlength="10">
+                        <p class="fullnameerror c-red fs-13"></p>
+                    </div>
+
+
+
+                    <div class="col-12 col-lg-6">
+                        <label for="username" class="form-label fw-bold">Username*</label>
+                         <!-- pattern="^[A-Za-z]+[A-Za-z0-9_]*[A-Za-z0-9]+$"  -->
+                        <input type="text"  name="username" autocomplete="off" required class="form-control" id="username" placeholder="Enter Your User Name" minlength="5" maxlength="50">
+                        <p class="usernameerror  mb-0"></p>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <label for="email" class="form-label fw-bold">E-Mail*</label>
+                        <input type="email" required name="email" autocomplete="off" class="form-control" id="email" placeholder="Enter Your E-Mail ">
+                        <p class="emailerror "></p>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <label for="password" class="form-label fw-bold">Password*</label>
+                        <input type="password" title=" Password must contain at least one uppercase, one lowercase, one number and one special character " name="password" required class="form-control" minlength="10" maxlength="50" id="password" 
+                            placeholder="Enter Your Password">
+                            <!-- pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-+=:\[\]?\._;])[A-Za-z\d\s!@#$%^&*()\-+=:\[\]?\._;~`']{4,}$"  -->
+                        <p class="passworderror c-red fs-13"></p>
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <label for="vpassword" class="form-label fw-bold">Confirm Password*</label>
+                        <input type="password" required class="form-control" id="vpassword" placeholder="Enter Your Password Again">
+                        <p class=" c-red mt-1 fs-13  wrong-pass">The password doesn't match</p>
+                    </div>
+
+
+                 
+
+                    <p class=" fw-bold mb-0">Phone Number : <span class="c-grey fs-13 ml-10">(optional)</span></p>
+                    <div class="d-flex mb-10">
+
+                        <div class="mr-10">
+                            <select disabled class="removewebkit ">
+                            <option  selected>+20</option>
+
+                        </select>
+
+                        </div>
+
+                        <div class="w-50">
+                            <input type="text" class="rad-10 p-10 w-full  phonenum" name="phonenum" placeholder="Enter your phone Number" minlength="10" maxlength="10">
+                            <p class="phonenumerror c-red fs-13"></p>
+                        </div>
+
+
+                    </div>
+
+                    
+                    <div class="gender mb-40">
+                        <div>
+                            <p class=" fw-bold">Gender : </p>
+                        </div>
+
+                        <div class="d-felx flex-row">
+
+                            <div class="male ">
+                                <div class="form-check ">
+                                    <input class="form-check-input" checked type="radio" name="gender" id="male" value="1">
+                                    <label class="form-check-label fw-bold" for="male">Male</label>
+                                </div>
+                            </div>
+                            <div class="female ">
+                                <div class="form-check ">
+                                    <input class="form-check-input" type="radio" name="gender" id="fmale" value="0">
+                                    <label class="form-check-label fw-bold" for="fmale">Female</label>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                    
+
+                    <div class="col-12 mb-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                            <label class="form-check-label fs-15" for="gridCheck"> By checking this box you agree to our terms and conditions.  </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-12  d-flex justify-content-center">
+                        <button type="submit" id="submit" class="btn btn-primary form-control w-50">Send Information </button>
+
+                    </div>
+                    <p class="servererror password-or-user c-red fs-13 txt-c"></p>
+
+                    <a href="login.html">
+                        <p class=" txt-c fs-20 fw-bold mb-10 ">Already got an account? Login</p>
+                    </a>
+
+
+                    <div class="  d-flex align-center justify-content-center footlink  mb-10">
+                        <a href="#" class=" mr-20">Terms</a>
+                        <a href="#" class=" mr-20 ">Privacy</a>
+                        <a href="#" class=" mr-20 ">Security</a>
+                        <a href="mailto:freesmilemans@gmail.com" class=" ">Contact Us</a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+<script src="js/jquery-3.6.1.min.js"></script>
+<script src="js/alertify.min.js"></script>
+<script src="js/regeis.js"></script>
+
+   
+</body>
+
+</html>
