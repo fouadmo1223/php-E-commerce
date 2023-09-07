@@ -1,0 +1,113 @@
+body {
+    background-color: #E3FDFD;
+}
+
+.logo img {
+    width: 75px;
+}
+
+.pageins {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.signin {
+    width: 415px;
+    height: 350px;
+    border-radius: 10px;
+}
+
+.forgetpass {
+    width: 70%;
+    height: 320px;
+    border-radius: 10px;
+}
+
+.confirmpass {
+    width: 70%;
+    height: 445px;
+    border-radius: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.Forgetpass:hover {
+    color: red;
+    transition-duration: .5s;
+}
+
+.signin .form-control {
+    border-radius: 10px;
+    border: none;
+}
+
+.footlink {
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+}
+
+.footlink a:hover {
+    color: black;
+    transition-duration: .5s;
+}
+
+.passoruser,
+.wrongemail {
+    display: none;
+}
+
+.forgetpass input[type="submit"],
+.confirmpass input[type="submit"] {
+    padding: 5px 20px;
+}
+
+.otppage .input,
+.otp-confirm-pass .input {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #dad9df;
+    outline: none;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 0.3em;
+    background-color: #ffffff;
+    outline: none;
+    /*Hide number field arrows*/
+    margin-right: 5px;
+}
+
+.otppage input[type="text"]::-webkit-outer-spin-button,
+.otppage input[type="text"]::-webkit-inner-spin-button,
+.otp-confirm-pass .input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.confirm-pass,
+.passforget {
+    display: none;
+}
+
+.w-30 {
+    width: 30%!important;
+}
+
+@media (max-width:500px) {
+    .confirmpass form p {
+        font-size: 15px;
+    }
+    .otp-confirm-pass .input {
+        height: 40px;
+        width: 40px;
+    }
+}
+
+@media (max-width:567px) {
+    .signin {
+        width: 340px;
+    }
+}
