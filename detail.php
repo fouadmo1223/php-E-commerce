@@ -43,17 +43,44 @@
           <div class="row mb-5">
             <div class="col-lg-6">
               <!-- PRODUCT SLIDER-->
+              <?php
+                  $productidd = $product['id'];
+                  $selectImages = $connection -> query("SELECT * FROM product_images WHERE product_id = $productidd ");
+                    if($selectImages -> num_rows == 0){
+                      $show = "d-none";
+                    }else{
+                      $show = "";
+                    }
+                  
+              ?>
               <div class="row m-sm-0">
-                <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0">
+                <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0 <?= $show ?> ">
                   <div class="owl-thumbs d-flex flex-row flex-sm-column" data-slider-id="1">
-                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/product-detail-1.jpg" alt="..."></div>
-                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/product-detail-2.jpg" alt="..."></div>
-                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="img/product-detail-3.jpg" alt="..."></div>
-                    <div class="owl-thumb-item flex-fill mb-2"><img class="w-100" src="img/product-detail-4.jpg" alt="..."></div>
+                  <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="admin/images/<?=  $product['image'] ?>" alt="..."></div>
+                    <?php
+                        if($show == ""){
+                          foreach($selectImages as $image){
+                    ?>
+                    <div class="owl-thumb-item flex-fill mb-2 mr-2 mr-sm-0"><img class="w-100" src="admin/images/<?=  $image['image'] ?>" alt="..."></div>
+                            <?php
+                                 }
+                                }
+                            ?>
                   </div>
                 </div>
                 <div class="col-sm-10 order-1 order-sm-2">
-                  <div class="owl-carousel product-slider" data-slider-id="1"><a class="d-block" href="admin/images/<?= $product['image'] ?>" data-lightbox="product" title="<?= $product['name'] ?>"><img class="img-fluid" src="admin/images/<?= $product['image'] ?>" alt="..."></a><a class="d-block" href="img/product-detail-2.jpg" data-lightbox="product" title="Product item 2"><img class="img-fluid" src="img/product-detail-2.jpg" alt="..."></a><a class="d-block" href="img/product-detail-3.jpg" data-lightbox="product" title="Product item 3"><img class="img-fluid" src="img/product-detail-3.jpg" alt="..."></a><a class="d-block" href="img/product-detail-4.jpg" data-lightbox="product" title="Product item 4"><img class="img-fluid" src="img/product-detail-4.jpg" alt="..."></a></div>
+                  <div class="owl-carousel product-slider" data-slider-id="1">
+                    <a class="d-block" href="admin/images/<?= $product['image'] ?>" data-lightbox="product" title="<?= $product['name'] ?>"><img class="img-fluid" src="admin/images/<?= $product['image'] ?>" alt="product image"></a>
+                  <?php
+                        if($show == ""){
+                          foreach($selectImages as $image){
+                    ?>
+                  <a class="d-block" href="admin/images/<?= $image['image'] ?>" data-lightbox="product" title="Product item 2"><img class="img-fluid" src="admin/images/<?= $image['image'] ?>" alt="product image"></a>
+                  <?php
+                                 }
+                                }
+                            ?>
+                    </div>        
                 </div>
               </div>
             </div>
@@ -74,8 +101,8 @@
                   <div class="border d-flex align-items-center justify-content-between py-1 px-3 bg-white border-white"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
                     <div class="quantity">
                       <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                      <input class="form-control border-0 shadow-0 p-0 " id="quantity" type="text" value="1">
-                      <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                      <input class="form-control border-0 shadow-0 p-0 " max="<?= $product['count'] ?>" id="quantity" type="text" value="1">
+                      <button class="inc-btn p-0" data-count =" <?= $product['count'] ?>"><i class="fas fa-caret-right"></i></button>
                     </div>
                   </div>
                </div>                                                                                                                       <!--     product -->
@@ -153,7 +180,7 @@
                     </div>
                    <?php
                         }}else{
-                          echo "<h4 class ='txt-c'> There is no <span class = 'fw-bold text-danger'> Reviews </span> to this product </h4>";
+                          echo "<h4 class ='txt-c no-reviews'> There is no <span class = 'fw-bold text-danger'> Reviews </span> to this product </h4>";
                         }
                    ?>
 
@@ -245,8 +272,8 @@
                         <div class="border d-flex align-items-center justify-content-between py-1 px-3"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control border-0 shadow-0 p-0 quantitymodal"  type="text" value="1">
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <input class="form-control border-0 shadow-0 p-0 quantitymodal" max="<?= $prod['count']?>"  type="text" value="1">
+                            <button class="inc-btn p-0" data-count= "<?= $prod['count']?>"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
                       </div>
@@ -320,7 +347,7 @@
       <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
       <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-      <script src="js/front.js"></script>
+      <script src="js/frontV2.js"></script>
       <script>
         // ------------------------------------------------------- //
         //   Inject SVG Sprite - 
@@ -351,9 +378,9 @@
     </div>
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      <!-- add to cart with quantity -->
-     <script src="js/detailaddtocart.js"></script>
+     <script src="js/detailaddtocartV4.js"></script>
      <!-- add to cart wittout quantity -->
-     <script src="js/addtocart.js"></script>
+     <script src="js/addtocartV2.js"></script>
      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- favorite requests -->
     <script src="js/fav.js"></script>
@@ -379,7 +406,7 @@
            
         }).then((res)=>{
          if(res){
-         window.location.href ="login.html";
+         window.location.href ="login.php";
          }else{
        
          }
@@ -427,6 +454,9 @@
                 console.log(response);
              /////////////////   it adds four comments /////////////////
                 if(response.status == "sucsess"){
+                  if($(".review-contain").find(".no-reviews")[0] != "undefined"){
+                    $(".no-reviews").addClass("d-none");
+                  }
                   $(".comment-value").val('');
                   $(".rate-value").val("");
                   const newCommentHtml = `

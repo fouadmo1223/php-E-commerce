@@ -16,12 +16,21 @@ include "../admin/PhpFunctions/connection.php";
         $productId = $_POST['productid'];
         $userId = $_POST['userid'];
         
-
+        $selectFromRev = $connection -> query("SELECT * FROM reviews WHERE product_id = $productId AND user_id = $userId");
+        $filanRate = 0;
+        $numOfRev = ($selectFromRev -> num_rows) + 1;
+        foreach($selectFromRev as $reviwe){
+            $filanRate += $reviwe['rate'];
+        }
+        $filanRate = ($filanRate +$rate)/ ($numOfRev);
+      
+        
         $comment = mysqli_real_escape_string($connection, $comment);
 
         $insert = "INSERT INTO reviews (user_id,product_id,describition,rate) VALUES ('$userId', '$productId', '$comment', '$rate')";
         $query = $connection -> query($insert);
         if($query){
+              $updateRate = $connection -> query("UPDATE products SET rate = '$filanRate' WHERE id = $productId");
             $response= array("status" => "sucsess", "message" => "Comment is sent successfully");
             echo json_encode($response);
         }else{

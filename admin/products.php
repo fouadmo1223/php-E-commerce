@@ -29,6 +29,8 @@
 						include("elements/addProductForm.php");
 					}elseif($_GET["action"] == "editproduct"){
 						include("elements/editProdcut.php");
+					}elseif($_GET["action"] == "images"){
+						include("elements/imagestable.php");
 					}
 				?>
 			</div>

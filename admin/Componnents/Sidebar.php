@@ -21,6 +21,9 @@ elseif (strpos($currentURL, "categories")){
 elseif (strpos($currentURL, "orders")){
 	$page = "orders";
 }
+elseif (strpos($currentURL, "coupons")){
+	$page = "coupons";
+}
 ?>
 
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -57,6 +60,12 @@ elseif (strpos($currentURL, "orders")){
 					echo "active";
 				}
 			?>"><a href="orders.php"><em class="fa fa-folder">&nbsp;</em> Orders</a></li>
+
+			<li class="<?php
+				if($page == "coupons"){
+					echo "active";
+				}
+			?>"><a href="coupons.php"><em class="fa fa-money">&nbsp;</em> Coupons</a></li>
 
 				<li class="<?php
 				if($page == "categories"){

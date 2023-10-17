@@ -33,8 +33,8 @@
                         <div class="border d-flex align-items-center justify-content-between py-1 px-3"><span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control border-0 shadow-0 p-0 quantitymodal"  type="text" value="1">
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <input class="form-control border-0 shadow-0 p-0 quantitymodal"  max="<?= $product['count'] ?>"  type="text" value="1">
+                            <button class="inc-btn p-0" data-count =" <?= $product['count'] ?>"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
                       </div>
@@ -218,7 +218,7 @@
       <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
       <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-      <script src="js/front.js"></script>
+      <script src="js/frontV2.js"></script>
       <script src="js/alertify.js"></script>
       <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -247,7 +247,7 @@
         injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg'); 
         
       </script>
-      <script src="js/addtocart.js"></script>
+      <script src="js/addtocartV2.js"></script>
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
@@ -255,7 +255,7 @@
     <!-- favorite requests -->
     <script src="js/fav.js"></script>
     <!-- modal add to cart  -->
-    <script src="js/detailaddtocart.js"></script>
+    <script src="js/detailaddtocartV2.js"></script>
     <script>
        AOS.init();
       let logedInOrNot = <?php
@@ -265,6 +265,8 @@
             echo "false";
           }
       ?>;
+
+     
       $(document).click(function(event){
           if (!logedInOrNot && !$(event.target).closest('.swal-modal').length) {
           swal({
@@ -276,7 +278,7 @@
            
         }).then((res)=>{
          if(res){
-         window.location.href ="login.html";
+         window.location.href ="login.php";
          }else{
        
          }

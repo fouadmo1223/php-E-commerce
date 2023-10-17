@@ -8,7 +8,7 @@
 							<th scope="col">Name</th>
 							<th scope="col">Price</th>
 							<th scope="col">Sale</th>
-							<th scope="col">Image</th>
+							<th scope="col">Main Image</th>
 							<th scope="col">Count</th>
 							<th scope="col">Opreations</th>
 
@@ -31,7 +31,7 @@
 						<td><?= $product['count'] ?></td>
 						<td>
 							<div class="d-felx ">
-								<a class="btn btn-primary " href="?action=editproduct&id=<?= $product['id']?>">Edit</a> <button id="<?= $product['id']?>" class="btn btn-danger ml-10 hvr-buzz deleteproduct">Delete</button>
+								<a class="btn btn-primary mr-10" href="?action=editproduct&id=<?= $product['id']?>">Edit</a> <a class="btn btn-warning" href="?action=images&id=<?= $product['id']?>">Images</a> <button id="<?= $product['id']?>" class="btn btn-danger ml-10 hvr-buzz deleteproduct">Delete</button>
 							</div>
 						</td>
 						</tr>

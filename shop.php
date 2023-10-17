@@ -58,7 +58,7 @@ $pageee = $_SESSION['page'];
                           <div class="quantity">
                             <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
                             <input class="form-control border-0 shadow-0 p-0 quantitymodal"  type="text" value="1">
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <button class="inc-btn p-0" data-count =" <?= $product['count'] ?>"><i class="fas fa-caret-right"></i></button>
                           </div>
                         </div>
                       </div>
@@ -123,6 +123,7 @@ $pageee = $_SESSION['page'];
                   <div class="row pt-2">
                     <div class="col-6"><strong class="small font-weight-bold text-uppercase">From</strong></div>
                     <div class="col-6 text-right"><strong class="small font-weight-bold text-uppercase">To</strong></div>
+                    <button class="btn btn-dark mt-10 w-fit rad-10 price-filter hvr-forward" style="margin-left: 10px;">Filter</button>
                   </div>
                 </div>
                 <h6 class="text-uppercase mb-3">Show only</h6>
@@ -174,31 +175,34 @@ $pageee = $_SESSION['page'];
                   <div class="col-lg-6 mb-2 mb-lg-0">
                     <p class="text-small text-muted mb-0">Showing 1–12 of 53 results</p>
                   </div>
-                  <div class="col-lg-6">
+                  <div class="col-lg-6  mb-20">
                     <ul class="list-inline d-flex align-items-center justify-content-lg-end mb-0">
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th-large"></i></a></li>
                       <li class="list-inline-item text-muted mr-3"><a class="reset-anchor p-0" href="#"><i class="fas fa-th"></i></a></li>
                       <li class="list-inline-item">
-                        <select class="selectpicker ml-auto" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
+                        <select class="selectpicker ml-auto" id="productsSorting" name="sorting" data-width="200" data-style="bs-select-form-control" data-title="Default sorting">
                           <option value="default">Default sorting</option>
                           <option value="popularity">Popularity</option>
-                          <option value="low-high">Price: Low to High</option>
-                          <option value="high-low">Price: High to Low</option>
+                          <option value="low">Price: Low to High</option>
+                          <option value="high">Price: High to Low</option>
                         </select>
                       </li>
                     </ul>
                   </div>
                 </div>
-                <div class="row">
+                <div class="row product-container">
+
+
+
                   <!-- PRODUCT-->
                   <?php
                       foreach($query as $product){ 
                         $price =$product['price'];
                   ?>
-                  <div class="col-lg-4 col-sm-6  hvr-float" >
+                  <div class="col-lg-4 col-sm-6  hvr-float mb-20" >
                     <div class="product text-center" data-aos="fade-up"  data-aos-duration="1500">
                       <div class="mb-3 position-relative">
-                        <div class="badge text-white badge-"></div><a class="d-block" href="detail.php?id=<?=$product['id']?>"><img class="img-fluid w-100" src="admin/images/<?=$product['image']?>" alt="..."></a>
+                        <div class="badge text-white badge-"></div><a class="d-flex justify-content-center align-center mb-20" style="height: 300px;" href="detail.php?id=<?=$product['id']?>"><img class="img-fluid w-100" src="admin/images/<?=$product['image']?>" alt="..."></a>
                          <?php
                       if($product['new'] == 1){
                         echo "<div class='badge text-white badge-primary'>New</div>";
@@ -275,42 +279,53 @@ $pageee = $_SESSION['page'];
       <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
       <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-      <script src="js/front.js"></script>
+      <script src="js/frontV2.js"></script>
       <!-- favorite requests  -->
       <script src="js/fav.js"></script>
       <!-- add to cart requests -->
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
      <!-- modal add to cart  -->
-    <script src="js/detailaddtocart.js"></script>
-      <script src="js/addtocart.js"></script>
+    <script src="js/detailaddtocartV2.js"></script>
+      <script src="js/addtocartV2.js"></script>
       <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
       <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-      <!-- Nouislider Config-->
-      
+      <!-- Nouislider Config-->  
       <script>
+
+         userId = <?php
+           if(isset($_COOKIE["userid"])){
+            echo $_COOKIE["userid"];
+           }else{
+            echo "undefined";
+           }
+        ?>;
+
             AOS.init();
+            let minPrice,maxPrice ;
         var range = document.getElementById('range');
         noUiSlider.create(range, {
             range: {
                 'min': 0,
-                'max': 2000
+                'max': 20000
             },
-            step: 5,
-            start: [100, 1000],
+            step: 100,
+            start: [1000, 5000],
             margin: 300,
             connect: true,
             direction: 'ltr',
             orientation: 'horizontal',
             behaviour: 'tap-drag',
             tooltips: true,
-            format: {
-              to: function ( value ) {
-                return '$' + value;
-              },
-              from: function ( value ) {
-                return value.replace('', '');
-              }
-            }
+           format: {
+  to: function (value) {
+  
+    return '$' + value;
+  },
+  from: function (value) {
+    
+    return value; // Remove the problematic line
+  }
+}
         });
         
       </script>
@@ -342,9 +357,8 @@ $pageee = $_SESSION['page'];
       <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </div>
-     
+     <!--         check for login or not        -->
     <script>
-
           let logedInOrNot = <?php
           if(isset($_COOKIE['userid'])){
             echo "true";
@@ -363,18 +377,21 @@ $pageee = $_SESSION['page'];
            
         }).then((res)=>{
          if(res){
-         window.location.href ="login.html";
-         }else{
-       
+         window.location.href ="login.php";
          }
         })
   }
       })
 
-
-
-        
-
+    </script>
+      <!--           price Filter Request       -->
+      <script src="js/getProducts.js"></script>
+    <script src="js/pricefilter.js"></script>
+    <!--               sort products         -->
+    <script src="js/sort.js"></script>
+    
+    <script>
+    
     </script>
   </body>
 </html>

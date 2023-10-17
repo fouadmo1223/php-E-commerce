@@ -108,21 +108,21 @@
                         </div>
                       </th>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">$<?= $productPrice ?></p>
+                        <p class="mb-0 small product-price">$<?= $productPrice ?></p>
                       </td>
                       <td class="align-middle border-0">
                         <div class="border d-flex align-items-center justify-content-between px-3"><span class="small text-uppercase text-gray headings-font-family">Quantity</span>
                           <div class="quantity">
-                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                            <input class="form-control form-control-sm border-0 shadow-0 p-0 quant" type="text" value="<?= $row['quantity']?>"/>
-                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                            <button class="dec-btn p-0 dec-price" data-pro-id="<?= $row['product_id']; ?>" data-user-id="<?= $_COOKIE['userid'] ?>" data-count="<?= $product['count']?>"><i class="fas fa-caret-left "></i></button>
+                            <input class="form-control form-control-sm border-0 shadow-0 p-0 quant" readonly disabled data-pro-id="<?= $row['product_id']; ?>" data-user-id="<?= $_COOKIE['userid'] ?>"  type="text" value="<?= $row['quantity']?>"/>
+                            <button class="inc-btn p-0 add-price" data-pro-id="<?= $row['product_id']; ?>" data-user-id="<?= $_COOKIE['userid'] ?>" data-count="<?= $product['count']?>"><i class="fas fa-caret-right "></i></button>
                           </div>
                         </div>
                       </td>
                       <td class="align-middle border-0">
-                        <p class="mb-0 small">$<?=  $productPrice *  $row['quantity'] ?></p>
+                        <p class="mb-0 small product-total">$<?=  $productPrice *  $row['quantity'] ?></p>
                       </td>
-                      <td class="align-middle border-0"><a class="reset-anchor remove-from-cart" data-order-id ="<?= $row['id']?>" style="cursor: pointer;"><i class="fas fa-trash-alt small text-muted "  ></i></a></td>
+                      <td class="align-middle border-0"><a class="reset-anchor remove-from-cart" data-product-id="<?= $product['id']?>" data-count="<?= $row['quantity']?>" data-order-id ="<?= $row['id']?>" style="cursor: pointer;"><i class="fas fa-trash-alt small text-muted "  ></i></a></td>
                     </tr>
                     <?php
                         }
@@ -134,7 +134,7 @@
               <div class="bg-light px-4 py-3">
                 <div class="row align-items-center text-center">
                   <div class="col-md-6 mb-3 mb-md-0 text-md-left"><a class="btn btn-link p-0 text-dark btn-sm" href="shop.php"><i class="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</a></div>
-                  <div class="col-md-6 text-md-right"><a class="btn btn-outline-dark btn-sm" href="checkout.html">Procceed to checkout<i class="fas fa-long-arrow-alt-right ml-2"></i></a></div>
+                  <div class="col-md-6 text-md-right"><a class="btn btn-outline-dark btn-sm checkOut" href="checkout.html">Procceed to checkout<i class="fas fa-long-arrow-alt-right ml-2"></i></a></div>
                 </div>
               </div>
             </div>
@@ -144,14 +144,14 @@
                 <div class="card-body">
                   <h5 class="text-uppercase mb-4">Cart total</h5>
                   <ul class="list-unstyled mb-0">
-                    <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small">$250</span></li>
+                    <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Subtotal</strong><span class="text-muted small sub-total">0</span></li>
                     <li class="border-bottom my-2"></li>
-                    <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>$<?= $totalPrice ?></span></li>
+                    <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span class="total">$<?= $totalPrice ?></span></li>
                     <li>
-                      <form action="#">
+                      <form  class="send-coupon">
                         <div class="form-group mb-0">
-                          <input class="form-control" type="text" placeholder="Enter your coupon">
-                          <button class="btn btn-dark btn-sm btn-block" type="submit"> <i class="fas fa-gift mr-2"></i>Apply coupon</button>
+                          <input class="form-control coupon" required minlength="5" type="text" placeholder="Enter your coupon">
+                          <button class="btn btn-dark btn-sm btn-block coupon-button" type="submit"> <i class="fas fa-gift mr-2"></i>Apply coupon</button>
                         </div>
                       </form>
                     </li>
@@ -206,6 +206,7 @@
         </div>
       </footer>
       <!-- JavaScript files-->
+      <script src="js/couponValid.js"></script>
       <script src="vendor/jquery/jquery.min.js"></script>
       <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="vendor/lightbox2/js/lightbox.min.js"></script>
@@ -213,9 +214,9 @@
       <script src="vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
       <script src="vendor/owl.carousel2/owl.carousel.min.js"></script>
       <script src="vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.min.js"></script>
-      
-      <script src="js/front.js"></script>
+      <script src="js/frontV2.js"></script>
       <script>
+        
         // ------------------------------------------------------- //
         //   Inject SVG Sprite - 
         //   see more here 
@@ -248,86 +249,42 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- alertfy  -->
     <script src="js/alertify.min.js"></script>
+   
+    <script src="js/removefromcart.js"></script>
+    <script src="js/sendCoupon.js"></script>
+    <script src="js/addandremoveproduct2.js"></script>
     <script>
-     let allQutityInput = document.querySelectorAll(".quant");
-     console.log(allQutityInput)
-     allQutityInput.forEach(function(quantityInput){
-      quantityInput.addEventListener("change", function(){
-        console.log(this.value);
+      $(".checkOut").click(function(e){
+        e.preventDefault();
       })
-     })
 
-
-     $(".remove-from-cart").click(function(){
-     let orederId =  $(this).attr("data-order-id");
-     let removeButton = $(this);
-     
-      swal({
-        title: "Are you sure?",
-        text: "Once deleted, you will not be able to recover this imaginary file!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+      $(".quant").keypress(function(event){
+        if (isNaN(event.key)) {
+            event.preventDefault();
+          }
       })
-      .then((willDelete) => {
-
-        if (willDelete) {
-          console.log(orederId)
-          $.ajax({
-                method:"POST",
-                url:"phpUserFuntions/removefromcart.php",
-                dataType: "json",
-                data:{
-                    "orderid" :orederId,
-                    
-              }, beforeSend: function() {
-               
-              }
-              ,success:function(response){
-                 if(response.status == "sucsess"){
-                  console.log(response);
-                  $(removeButton).parent().parent()[0].remove();
-                  $(".num-of-products").text(
-              parseInt($(".num-of-products").text()) - 1
-            );
-                  
-                   swal("Poof! Your product has been deleted!", {
-                    icon: "success",
-                  }).then(() => {
-                     alertify.notify(response.message, 'success', 2, function(){});
-                  })
-                 }else{
-                   swal("Some thing Went wrong ,please try again",{
-                    icon:"error",
-                  }).then(() => {
-                    alertify.notify(response.message, 'error', 2, function(){});
-                  })
-                 }
-              }
-            })
-
-        } else {
-          swal("Your product is safe!",{
-            icon:"error",
-          }).then(() => {
-                    alertify.notify("Your product still exist", 'error', 2, function(){});
-                  })
-        }
-      });
-
-
-
-
-
-
-
-
-          
-
-
-     })
-
      
+      // $(".quant").change(function(event){
+      //   let userId = $(this).attr("data-user-id");
+      //   let productId = $(this).attr("data-pro-id");
+      //   let quantity = $(this).val();
+      //   $.ajax({
+      //     method:"POST",
+      //     url:"phpUserFuntions/addtocart.php",
+      //     dataType:"json",
+      //     data:{
+      //       userid:userId,
+      //       productid:productId,
+      //       quantity:quantity
+      //     },
+      //     success:function(data){
+      //       console.log(data);
+      //     }
+      //   })
+      // })
+
+
+      
     </script>
   </body>
 </html>

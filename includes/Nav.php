@@ -77,8 +77,15 @@ $numOfFav = $selectfav -> num_rows;
 <link rel="stylesheet" href="css/themes/default.min.css" />
   <link rel="stylesheet" href="css/hover.css" />
    <link rel="stylesheet" href="css/framework.css">
-
+<script src="js/jquery-3.6.1.min.js"></script>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <style>
+
+  .ajs-header,.ajs-close,.ajs-buttons{
+    display: none !important;
+  }
+
           .heart-clicked{
     color: #fff !important;
     background-color: #111111 !important;
@@ -102,6 +109,216 @@ $numOfFav = $selectfav -> num_rows;
   input[type="number"] {
     -moz-appearance: textfield;
   }
+
+@keyframes square-animation {
+ 0% {
+  left: 0;
+  top: 0;
+ }
+
+ 10.5% {
+  left: 0;
+  top: 0;
+ }
+
+ 12.5% {
+  left: 32px;
+  top: 0;
+ }
+
+ 23% {
+  left: 32px;
+  top: 0;
+ }
+
+ 25% {
+  left: 64px;
+  top: 0;
+ }
+
+ 35.5% {
+  left: 64px;
+  top: 0;
+ }
+
+ 37.5% {
+  left: 64px;
+  top: 32px;
+ }
+
+ 48% {
+  left: 64px;
+  top: 32px;
+ }
+
+ 50% {
+  left: 32px;
+  top: 32px;
+ }
+
+ 60.5% {
+  left: 32px;
+  top: 32px;
+ }
+
+ 62.5% {
+  left: 32px;
+  top: 64px;
+ }
+
+ 73% {
+  left: 32px;
+  top: 64px;
+ }
+
+ 75% {
+  left: 0;
+  top: 64px;
+ }
+
+ 85.5% {
+  left: 0;
+  top: 64px;
+ }
+
+ 87.5% {
+  left: 0;
+  top: 32px;
+ }
+
+ 98% {
+  left: 0;
+  top: 32px;
+ }
+
+ 100% {
+  left: 0;
+  top: 0;
+ }
+}
+
+.loader {
+ position: relative;
+ width: 96px;
+ height: 96px;
+ transform: rotate(45deg);
+}
+
+.loader-square {
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 28px;
+ height: 28px;
+ margin: 2px;
+ border-radius: 0px;
+ background: black;
+ background-size: cover;
+ background-position: center;
+ background-attachment: fixed;
+ animation: square-animation 10s ease-in-out infinite both;
+}
+
+.loader-square:nth-of-type(0) {
+ animation-delay: 0s;
+}
+
+.loader-square:nth-of-type(1) {
+ animation-delay: -1.4285714286s;
+}
+
+.loader-square:nth-of-type(2) {
+ animation-delay: -2.8571428571s;
+}
+
+.loader-square:nth-of-type(3) {
+ animation-delay: -4.2857142857s;
+}
+
+.loader-square:nth-of-type(4) {
+ animation-delay: -5.7142857143s;
+}
+
+.loader-square:nth-of-type(5) {
+ animation-delay: -7.1428571429s;
+}
+
+.loader-square:nth-of-type(6) {
+ animation-delay: -8.5714285714s;
+}
+
+.loader-square:nth-of-type(7) {
+ animation-delay: -10s;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  position: relative;
+}
+
+.loader:before {
+  content: '';
+  width: 48px;
+  height: 5px;
+  background: #f0808050;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  border-radius: 50%;
+  animation: shadow324 0.5s linear infinite;
+}
+
+.loader:after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background: #f08080;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  animation: jump7456 0.5s linear infinite;
+}
+
+@keyframes jump7456 {
+  15% {
+    border-bottom-right-radius: 3px;
+  }
+
+  25% {
+    transform: translateY(9px) rotate(22.5deg);
+  }
+
+  50% {
+    transform: translateY(18px) scale(1, .9) rotate(45deg);
+    border-bottom-right-radius: 40px;
+  }
+
+  75% {
+    transform: translateY(9px) rotate(67.5deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(90deg);
+  }
+}
+
+@keyframes shadow324 {
+
+  0%,
+    100% {
+    transform: scale(1, 1);
+  }
+
+  50% {
+    transform: scale(1.2, 1);
+  }
+}
+
+
+
         </style>
         
   </head>
@@ -143,16 +360,50 @@ $numOfFav = $selectfav -> num_rows;
                   echo 0;
                 }
                 ?></span>)</small></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"> <i class="far fa-heart mr-1"></i><small class="text-gray"> (<span class="num-of-fav"><?php 
+                <li class="nav-item"><a class="nav-link" href="favorite.php"> <i class="far fa-heart mr-1"></i><small class="text-gray"> (<span class="num-of-fav"><?php 
                 if(isset($_COOKIE['userid'])){
                   echo $numOfFav;
                 }else{
                   echo 0;
                 }
                 ?></span>)</small></a></li>
-                <li class="nav-item"><a class="nav-link" href="login.html"> <i class="fas fa-user-alt mr-1 text-gray"></i>Login</a></li>
+                <?php
+                    if(isset($_COOKIE['userid'])){
+                      echo '<li class="nav-item "><a class="nav-link logout" href="login.php"> <i class="fas fa-user-alt mr-1 text-gray"></i>logout</a></li>';
+                    }else{
+                      echo '<li class="nav-item "><a class="nav-link " href="login.php"> <i class="fas fa-user-alt mr-1 text-gray"></i>Login</a></li>';
+                      // اعمل ايفنت لما اضغط يبعت ريكوس تيعمل logout
+                    }
+                ?>
               </ul>
             </div>
           </nav>
         </div>
       </header>
+      <script>
+        $(".logout").click(function(e){
+          e.preventDefault();
+          $.ajax({
+            method:"post",
+            url : "logout.php",
+            dataType:"json",
+            beforeSend:function(data){
+              var customContent = '<div class"logout-loader"><div class="loader"></div></div>';
+
+// Open the Alertify dialog with custom content and set it as not closable by dimmer
+              alertify.alert(customContent, function () {
+                alertify.success('Great');
+              }).set({'closableByDimmer': false}).show();
+            },
+            success:function(data){
+              console.log(data);
+              $(".ajs-close").trigger("click")
+              window.location.replace("login.php");
+
+            },
+            error:function(data){
+              console.log(data);
+            }
+          })
+        })
+      </script>

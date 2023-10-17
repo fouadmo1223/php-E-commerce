@@ -11,7 +11,7 @@ include "../admin/PhpFunctions/connection.php";
     $response = array("status" => "error", "message" => "FullName is required ");
     echo json_encode($response);
    } elseif (strlen($_POST['password']) == 0) {
-    $response = array("status" => "error", "message" => "Passwordis required ");
+    $response = array("status" => "error", "message" => "Password is required ");
     echo json_encode($response);
    }elseif (strlen($_POST['gender']) == 0) {
     $response = array("status" => "error", "message" => "Gender is required ");
